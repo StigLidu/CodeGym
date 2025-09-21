@@ -5,6 +5,7 @@
 # Generalizable End-to-End Tool-Use RL with Synthetic CodeGym
 
 
+
 CodeGym is a synthetic environment generation framework for LLM agent reinforcement learning on tool-use tasks. It automatically converts static code problems into interactive CodeGym environments where agents can learn to use tools to solve complex tasks in various configurations.
 
 > 🚀 Coming Soon: We will release the generation pipeline and the CodeGym dataset. Stay tuned for updates!
@@ -47,4 +48,4 @@ By training in CodeGym, LLMs show stronger generalization on out-of-distribution
 
 ## License
 
-This project and dataset are released under the [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) license, which is intended solely for non-commercial, academic research purposes. Users must provide proper attribution in accordance with the license requirements.
+This project and dataset are released under the [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) license.
