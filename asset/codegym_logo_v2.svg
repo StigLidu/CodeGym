@@ -1,11 +1,4 @@
-import os
-
-out_dir = "asset"
-os.makedirs(out_dir, exist_ok=True)
-
-path = os.path.join(out_dir, "codegym_logo_v2.svg")
-
-content = '''<svg width="1000" height="160" viewBox="0 0 1000 160" xmlns="http://www.w3.org/2000/svg">
+<svg width="1000" height="160" viewBox="0 0 1000 160" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="g2" x1="0" x2="1" y1="0" y2="0">
       <stop offset="0%" stop-color="#61DAFB"/>
@@ -25,7 +18,4 @@ content = '''<svg width="1000" height="160" viewBox="0 0 1000 160" xmlns="http:/
       &lt;CodeGym/&gt;
     </text>
   </g>
-</svg>'''
-
-with open(path, "w", encoding="utf-8") as f:
-    f.write(content)
+</svg>
