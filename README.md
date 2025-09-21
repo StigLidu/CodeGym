@@ -36,3 +36,15 @@ We designed an elaborate process for CodeGym environment synthesis and verificat
 - Generate comprehensive unit tests spanning multiple difficulty levels
 - Validate environment correctness (no compilation errors, timeouts, or memory issues)
 - Verify solvability by generating solution functions that successfully use the provided tools
+
+## Key Result
+
+By training in CodeGym, LLMs show stronger generalization on out-of-distribution (OOD) benchmarks:
+
+<p align="center">
+  <img src="asset/key_result.png" alt="CodeGym Logo" width="1440"/>
+</p>
+
+## License
+
+This project and dataset are released under the [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) license, which is intended solely for non-commercial, academic research purposes. Users must provide proper attribution in accordance with the license requirements.
