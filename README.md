@@ -57,7 +57,7 @@ The `example/` folder contains sample CodeGym environments to help you get start
 
 ## Key Result
 
-By training in CodeGym, LLMs show stronger generalization on out-of-distribution (OOD) benchmarks:
+By training in CodeGym, LLMs show stronger generalization on out-of-distribution (OOD) tool-use and multi-turn benchmarks:
 
 <p align="center">
   <img src="asset/key_result.png" alt="CodeGym Logo" width="1440"/>
