@@ -1,0 +1,68 @@
+Your task is to transform a given "code problem" and its "code solution" into a subclass of [`gymnasium.Env`](https://gymnasium.farama.org/_modules/gymnasium/core/#Env), making it an interactive environment for Agent exploration and task completion.
+
+Please output:
+
+* A clear and understandable **task description**, including input → output examples;
+* A **complete and runnable Gym environment implementation**.
+
+---
+
+## Design Requirements
+
+### Task Description:
+
+* The task description should be concise and clear, using natural language to describe the Agent's objective;
+* Must not contain phrases like "please implement code" or imply programming behavior;
+* Do not provide any hints or solution approaches, only describe the task objective;
+* Must include at least one input → output example;
+* This is an agent task where the agent interacts with the environment through actions, not by writing code.
+
+---
+
+### Environment Implementation (Gym):
+
+* The environment class must inherit from `gymnasium.Env`;
+* All code should be independently runnable without external library dependencies or unimplemented functions;
+* Must implement the following methods:
+
+  * `reset(self, options: dict)`: Reset the environment, `options` is a dictionary with variable names as keys and variable values as values;
+  * `from_env_str(s: str)`: Support string-based initialization in the format `"EnvName@{...}"`, where `{...}` is a stringified dictionary;
+  * `get_ref_answer(self) -> Any`: Return the reference answer for this environment. **Note:** This function should not accept any additional input parameters and should only rely on information already available within the environment for computation. It is recommended that the implementation logic of this function be consistent with the answer generation method in the original code provided in the data to ensure evaluation accuracy and consistency.
+  * `solve`: Simulate the process of an agent completing the task by calling `step()` with actions. **Note: Must not directly call internal environment variables or reference answer functions, must not call any internal parameters (i.e., self.xxx)**
+  * `@property finished`: Whether the environment is completed, use the implementation from the example code directly;
+  * `@property reward`: Environment reward, use the implementation from the example code directly.
+
+---
+
+### Action Design:
+
+* Each action should have the following characteristics:
+  
+  * Complete docstring including `Args`, `Returns`, and `Example Output` fields;
+  * Intuitive, reusable, and atomic names (e.g., `IncrementCounter`, `SelectItemByIndex`);
+  * Clear input parameters, no implicit dependencies on environment state;
+  * Return key state change information after operation, type `str`, useful for debugging but must not contain guidance or suggestions;
+  * If structured information (such as lists, dictionaries) needs to be returned, use `json.dumps()` to convert it to a string;
+  * Must be specified in `self.func_mapping` in `__init__`;
+
+* Must implement the following special actions:
+
+  * `Observe()`: For the agent to get the current state;
+  * `Done(answer)`: Agent submits the final answer, compares with the standard answer, returns `reward=1` or `reward=0`, no intermediate rewards should be provided;
+
+---
+
+### Other Constraints and Requirements:
+
+* Must implement static method `from_env_str()` for string-based environment initialization. If complex structures (such as trees) are involved, corresponding encoding and decoding logic needs to be implemented;
+* Use `from_env_str` for initialization in the `__init__` method;
+* Add `self.func_mapping` mapping in `__init__` to map action names (strings) to corresponding methods;
+* Must include `solve()` method to simulate the process of an agent completing the task by calling `step()` with actions. **Must not directly call internal environment variables or reference answer functions**;
+* Input to `step()` should be a JSON string in the format: `{"name": action_name, "parameters": {...}}`;
+* Do not set `self.action_space` or `self.observation_space`;
+* All action names must use PascalCase (e.g., `CountOccurrences`, `GetModes`) to ensure naming conventions;
+* `get_ref_answer` should not have additional input variables and should only rely on information already available within the environment for computation;
+* Environment class name should be in the format `{{TaskName}}Env`, for example: `ModeFindingEnv`, for unified management;
+* Need to implement `self.step_count`, clear it in `reset`, increment by 1 in `step()`;
+* I will provide an environment transformation example, and the [required] fields in the example should also appear in the environment you build;
+* Must provide a main function (`if __name__ == "__main__"`), including two test cases, outputting environment verification results and the number of steps used to complete the task.

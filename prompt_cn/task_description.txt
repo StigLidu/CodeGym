@@ -1,0 +1,68 @@
+你的任务是将给定的“代码问题”和其“代码答案”转化为一个 [`gymnasium.Env`](https://gymnasium.farama.org/_modules/gymnasium/core/#Env) 的子类，使其成为一个可供 Agent 交互探索、完成任务的环境。
+
+请输出：
+
+* 一个通俗易懂的**任务说明（task）**，包括输入 → 输出的示例；
+* 一个**完整可运行的 Gym 环境实现代码**。
+
+---
+
+## 设计要求
+
+### 任务描述（task）：
+
+* 任务描述应简洁明了，用自然语言表述 Agent 的目标；
+* 不得包含“请实现代码”等措辞，不得暗示编程行为；
+* 不提供任何提示或解题思路，仅描述任务目标；
+* 必须包含至少一个输入 → 输出的示例；
+* 这是一个 agent 任务，agent 通过调用环境中的 action 与环境交互，而非书写代码。
+
+---
+
+### 环境实现（Gym）：
+
+* 环境类必须继承自 `gymnasium.Env`；
+* 所有代码应可独立运行，不得依赖外部库或未提供的实现；
+* 必须实现以下方法：
+
+  * `reset(self, options: dict)`：重置环境，`options` 为字典，键为变量名，值为变量值；
+  * `from_env_str(s: str)`：支持字符串形式初始化，格式为 `"EnvName@{...}"`，其中 `{...}` 是一个字符串化的字典；
+  * `get_ref_answer(self) -> Any`：返回该环境的参考答案。**注意：**该函数不应接受任何额外的输入参数，而应仅依赖环境内部已有的信息进行计算。建议该函数的实现逻辑与数据中提供的原始代码中的答案生成方式保持一致，以确保评估的准确性和一致性。
+  * `solve`：模拟 agent 通过调用 `step()` 与 actions 完成任务的过程，**注意：不得直接调用环境内部变量或参考答案函数，不得调用任何内部参数（即self.xxx） **
+  * `@property finished`：环境是否完成，直接使用示例代码中的实现；
+  * `@property reward`：环境奖励，直接使用示例代码中的实现。
+
+---
+
+### Action 设计：
+
+* 每个 action 应具有以下特征：
+  
+  * 完整的docstring，包含`Args`, `Returns`和`Example Output`字段；
+  * 有直观、可复用、原子化的名称（如 `IncrementCounter`, `SelectItemByIndex`）；
+  * 明确的输入参数，不得隐式依赖环境状态；
+  * 返回操作后的关键状态变化信息，类型为 `str`，可用于调试，但不得包含引导或建议；
+  * 如需返回结构化信息（如列表、字典），请使用 `json.dumps()` 将其转为字符串返回；
+  * 必须在`__init__`中的`self.func_mapping`指出；
+
+* 必须实现以下特殊 actions：
+
+  * `Observe()`：用于 agent 获取当前状态；
+  * `Done(answer)`：agent 提交最终答案，与标准答案比较，返回 `reward=1` 或 `reward=0`，不得提供中间奖励；
+
+---
+
+### 其他约束与要求：
+
+* 必须实现静态方法 `from_env_str()` 用于基于字符串初始化环境。若涉及复杂结构（如树），需实现相应的编码与解码逻辑；
+* 在 `__init__` 方法中使用 `from_env_str` 初始化；
+* 在 `__init__` 中添加 `self.func_mapping` 映射，将动作名称（字符串）映射到对应方法；
+* 必须包含 `solve()` 方法，模拟 agent 通过调用 `step()` 与 actions 完成任务的过程，**不得直接调用环境内部变量或参考答案函数**；
+* `step()` 的输入应为一个 JSON 字符串，格式为：`{"name": action_name, "parameters": {...}}`；
+* 不用设置 `self.action_space` 或 `self.observation_space`；
+* 所有 action 名称必须使用 PascalCase（如 `CountOccurrences`, `GetModes`），确保命名规范；
+* `get_ref_answer` 不应该有额外的传入的变量，而应仅依赖环境内部已有的信息进行计算；
+* 环境类名称应为 `{{任务名称}}Env` 的格式，例如：`ModeFindingEnv`，便于统一管理；
+* 需要实现`self.step_count`，在`reset`的时候清空，在`step()`的时候 +1；
+* 我会提供一个环境改造实例，实例中的[required]字段也要出现在你构建的环境中；
+* 必须提供主函数（if __name__ == "__main__"），包含两个 test case，输出环境验证结果及完成任务所用 step 数。

@@ -1,0 +1,1 @@
+You are given a task to find the mode(s) of a set of student scores. The scores are integers in the range of 0 to 10 (inclusive). The mode of a set of data is the value(s) that appear most frequently. If there are multiple values that appear with the same highest frequency, all of these values should be considered as modes and outputted.

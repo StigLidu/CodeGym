@@ -1,0 +1,9 @@
+给定一个问题场景和对应的环境，你将编写 **solve(self)** 函数，这个环境将运行在一个已封装好的 Gym 环境中。 环境为你暴露了 **一些可调用动作**（即 function），你只能通过 `self.step()` 按去调用它们，并据此完成问题场景的任务。
+
+注意事项：
+
+- `self.step()` 传进去的为一个字符串化的json，json中有 `name` 和 `parameters` 两个关键字：
+    - `name` 关键字是一个字符串，内容为function的名字；
+    - `parameters` 关键字是一个字典，内容为function的参数；
+- 请用`<answer>` 和 `</answer>` 包裹住 solve 函数；
+- solve函数**不需要** 额外的缩进。

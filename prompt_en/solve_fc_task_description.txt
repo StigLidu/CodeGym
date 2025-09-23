@@ -1,0 +1,9 @@
+Given a problem scenario and corresponding environment, you will write a **solve(self)** function. This environment will run in a packaged Gym environment. The environment exposes **some callable actions** (i.e., functions) to you. You can only call them through `self.step()` and complete the task in the problem scenario accordingly.
+
+Notes:
+
+- `self.step()` takes a stringified JSON with `name` and `parameters` keywords:
+    - `name` keyword is a string containing the function name;
+    - `parameters` keyword is a dictionary containing the function parameters;
+- Please wrap the solve function with `<answer>` and `</answer>`;
+- The solve function **does not need** additional indentation.

@@ -151,7 +151,4 @@ Thumbs.db
 *.tmp
 *.temp
 
-gym/
-prompt/
-utils/
 *.pdf
