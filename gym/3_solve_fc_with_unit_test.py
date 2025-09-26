@@ -1,3 +1,10 @@
+# Copyright (c) 2025 CodeGym Project Team.
+#
+# Licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+# You may not use this file except in compliance with the License.
+# You may obtain a copy of the License at:
+# https://creativecommons.org/licenses/by-nc/4.0/
+
 import sys
 import os
 import shutil
