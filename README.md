@@ -50,13 +50,6 @@ We designed an elaborate process for CodeGym environment synthesis and verificat
 - Validate environment correctness (no compilation errors, timeouts, or memory issues)
 - Verify solvability by generating solution functions that successfully use the provided tools
 
-## Examples
-
-The `example/` folder contains sample CodeGym environments to help you get started:
-- `example/example_envs` contains some CodeGym environments examples
-- `example/training_instance.jsonl` contains some instances for RL training
-- `example/raw_problems.jsonl` contains some raw coding problems for generation pipeline demonstration
-
 ## Key Result
 
 By training in CodeGym, LLMs show stronger generalization on out-of-distribution (OOD) tool-use and multi-turn benchmarks:
@@ -64,10 +57,6 @@ By training in CodeGym, LLMs show stronger generalization on out-of-distribution
 <p align="center">
   <img src="asset/key_result.png" alt="CodeGym Logo" width="1440"/>
 </p>
-
-## CodeGym Synthesis Pipeline
-
-We release the pipeline for environment synthesis and verification. Please refer to `gym/README.md` for details.
 
 ## License
 
